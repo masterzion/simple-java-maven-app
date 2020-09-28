@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Display env') {
             steps {
-                echo ${params.param1}
+                echo "Building on ${params.param1} env"
             }
         }
         stage('Build') {
