@@ -5,7 +5,9 @@ pipeline {
             args '-v /root/.m2:/root/.m2'
         }
     }
-    parameters { choice(name: 'param1', string, description: 'Environment') }
+    parameters { 
+                 string(name: 'param1', defaultValue: 'dev', description: '')
+               }
     stages {
         stage('Display env') {
             steps {
