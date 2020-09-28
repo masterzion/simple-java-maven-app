@@ -1,0 +1,26 @@
+pipeline {
+    agent {
+        docker {
+            image 'maven:3-alpine'
+            args '-v /root/.m2:/root/.m2'
+        }
+    }
+
+    parameters {
+       choice(choices: ['TESTING', 'STAGING', 'PRODUCTION'], description: 'Select field for target environment', name: 'DEPLOY_ENV')
+    }
+    stages {
+        stage('Build test 1') {
+            steps {
+                build job: 'test', parameters: [string(name: 'param1', value: "${params.DEPLOY_ENV}")]
+            }
+        }
+        
+        stage('Build test 2') {
+            steps {
+                build job: 'test2', parameters: [string(name: 'param1', value: "${params.DEPLOY_ENV}")]
+            }
+        }
+
+    }
+}
