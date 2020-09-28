@@ -5,7 +5,13 @@ pipeline {
             args '-v /root/.m2:/root/.m2'
         }
     }
+    parameters { choice(name: 'param1', string, description: 'Environment') }
     stages {
+        stage('Display env') {
+            steps {
+                echo '${params.param1}'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
